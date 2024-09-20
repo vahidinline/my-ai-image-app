@@ -1,6 +1,13 @@
 'use client'; // Marks this as a Client Component
 
-import { Button, Label, Spinner, Textarea, TextInput } from 'flowbite-react';
+import {
+  Accordion,
+  Button,
+  Label,
+  Spinner,
+  Textarea,
+  TextInput,
+} from 'flowbite-react';
 import { useState } from 'react';
 import { DarkThemeToggle, Flowbite } from 'flowbite-react';
 
@@ -56,121 +63,132 @@ export default function Home() {
           onSubmit={handleSubmit}
           className="space-y-6 bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-md">
           <div>
-            <Label
-              htmlFor="prompt"
-              value="Enter your prompt"
-              className="text-lg mb-2"
-            />
+            <Label htmlFor="prompt" value="پرامپت" className="text-lg mb-2" />
             <Textarea
               id="prompt"
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
-              placeholder="Describe the image you want to generate..."
+              placeholder="تصویری که قصد ایجاد آنرا دارید توصیف کنید (به انگلیسی)"
               required
               rows={4}
               className="w-full"
             />
           </div>
+          <Accordion>
+            <Accordion.Panel>
+              <Accordion.Title>تنظیمات پیشرفته</Accordion.Title>
+              <Accordion.Content>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label
+                      htmlFor="n_samples"
+                      value="Sample Count (1-4)"
+                      className="mb-2"
+                    />
+                    <TextInput
+                      id="n_samples"
+                      type="number"
+                      value={n_samples}
+                      onChange={(e) => setNSamples(Number(e.target.value))}
+                      min={1}
+                      max={4}
+                      disabled
+                    />
+                  </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <Label
-                htmlFor="n_samples"
-                value="Number of Samples"
-                className="mb-2"
-              />
-              <TextInput
-                id="n_samples"
-                type="number"
-                value={n_samples}
-                onChange={(e) => setNSamples(Number(e.target.value))}
-                min={1}
-                max={4}
-                disabled
-              />
-            </div>
+                  <div>
+                    <Label
+                      htmlFor="cfg_scale"
+                      value="Guidance Scale (0-20) "
+                      className="mb-2"
+                    />
+                    <TextInput
+                      id="cfg_scale"
+                      type="number"
+                      step="0.1"
+                      value={cfg_scale}
+                      onChange={(e) => setCfgScale(Number(e.target.value))}
+                      min={0}
+                      max={20}
+                    />
+                  </div>
+                </div>
 
-            <div>
-              <Label
-                htmlFor="cfg_scale"
-                value="Guidance Scale"
-                className="mb-2"
-              />
-              <TextInput
-                id="cfg_scale"
-                type="number"
-                step="0.1"
-                value={cfg_scale}
-                onChange={(e) => setCfgScale(Number(e.target.value))}
-                min={0}
-                max={20}
-              />
-            </div>
-          </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label
+                      htmlFor="seed (optional)"
+                      value="Seed (optional)"
+                      className="mb-2"
+                    />
+                    <TextInput
+                      id="seed"
+                      type="number"
+                      value={seed}
+                      onChange={(e) => setSeed(e.target.value)}
+                      placeholder="For reproducibility"
+                    />
+                  </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <Label htmlFor="seed" value="Seed (optional)" className="mb-2" />
-              <TextInput
-                id="seed"
-                type="number"
-                value={seed}
-                onChange={(e) => setSeed(e.target.value)}
-                placeholder="For reproducibility"
-              />
-            </div>
+                  <div>
+                    <Label
+                      htmlFor="num_inference_steps (1-100)"
+                      value="Inference Steps"
+                      className="mb-2"
+                    />
+                    <TextInput
+                      id="num_inference_steps"
+                      type="number"
+                      value={num_inference_steps}
+                      onChange={(e) =>
+                        setNumInferenceSteps(Number(e.target.value))
+                      }
+                      min={1}
+                      max={100}
+                    />
+                  </div>
+                </div>
 
-            <div>
-              <Label
-                htmlFor="num_inference_steps"
-                value="Inference Steps"
-                className="mb-2"
-              />
-              <TextInput
-                id="num_inference_steps"
-                type="number"
-                value={num_inference_steps}
-                onChange={(e) => setNumInferenceSteps(Number(e.target.value))}
-                min={1}
-                max={100}
-              />
-            </div>
-          </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label
+                      htmlFor="image_size (512x512, 768x768, 1024x1024)"
+                      value="Image Size"
+                      className="mb-2"
+                    />
+                    <TextInput
+                      id="image_size"
+                      value={image_size}
+                      onChange={(e) => setImageSize(e.target.value)}
+                      placeholder="e.g., 512x512"
+                    />
+                  </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <Label htmlFor="image_size" value="Image Size" className="mb-2" />
-              <TextInput
-                id="image_size"
-                value={image_size}
-                onChange={(e) => setImageSize(e.target.value)}
-                placeholder="e.g., 512x512"
-              />
-            </div>
-
-            <div>
-              <Label
-                htmlFor="style"
-                value="Style (optional)"
-                className="mb-2"
-              />
-              <TextInput
-                id="style"
-                value={style}
-                onChange={(e) => setStyle(e.target.value)}
-                placeholder="e.g., photorealistic"
-              />
-            </div>
-          </div>
-
+                  <div>
+                    <Label
+                      htmlFor="style (optional)"
+                      value="Style (optional)"
+                      className="mb-2"
+                    />
+                    <TextInput
+                      id="style"
+                      value={style}
+                      onChange={(e) => setStyle(e.target.value)}
+                      placeholder="e.g., photorealistic"
+                    />
+                  </div>
+                </div>
+              </Accordion.Content>
+            </Accordion.Panel>
+          </Accordion>
           <Button type="submit" className="w-full text-lg py-3">
             {status === 'loading' ? (
               <>
                 <Spinner size="sm" light={true} />
-                <span className="ml-2">Generating...</span>
+                <span className="ml-2">...در حال ایجاد تصویر</span>
               </>
             ) : (
-              'Generate Image'
+              'ایجاد تصویر'
             )}
           </Button>
         </form>
