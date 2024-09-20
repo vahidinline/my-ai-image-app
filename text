@@ -1,0 +1,4 @@
+PROJECT_ID=350430681081
+ENDPOINT_ID=5509588995111124992
+GOOGLE_APPLICATION_CREDENTIALS=./src/config/google-credentials.json
+GOOGLE_ENDPOINT_URL=https://us-central1-aiplatform.googleapis.com/v1/projects/${PROJECT_ID}/locations/us-central1/endpoints/${ENDPOINT_ID}:predict

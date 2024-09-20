@@ -2,9 +2,6 @@ import { GoogleAuth } from 'google-auth-library';
 import { NextResponse } from 'next/server';
 import path from 'path';
 
-const PROJECT_ID = process.env.PROJECT_ID;
-const ENDPOINT_ID = process.env.ENDPOINT_ID;
-
 // Load the service account key from the config file
 const keyFilePath = path.join(process.cwd(), 'src/config/key.json');
 
