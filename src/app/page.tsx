@@ -14,6 +14,7 @@ export default function Home() {
   const [style, setStyle] = useState('');
   const [imageData, setImageData] = useState(''); // This will store Base64 image data
   const [status, setStatus] = useState('idle');
+  const [errorMessage, setErrorMessage] = useState(''); // State for error message
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,6 +39,12 @@ export default function Home() {
     });
 
     const result = await response.json();
+    if (!response.ok) {
+      // If response is not ok, set the error message
+      setErrorMessage(result.error || 'An unexpected error occurred.');
+      setStatus('idle');
+      return;
+    }
     setImageData(result); // This will be a Base64 string of the image
     setStatus('success');
   };
@@ -45,9 +52,6 @@ export default function Home() {
   return (
     <Flowbite>
       <div className="container mx-auto p-4 max-w-3xl">
-        <h1 className="text-4xl font-bold mb-8 text-center">
-          AI Image Generator
-        </h1>
         <form
           onSubmit={handleSubmit}
           className="space-y-6 bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-md">
@@ -185,7 +189,9 @@ export default function Home() {
             </div>
           </div>
         )}
-
+        {errorMessage && (
+          <div className="mt-4 text-red-600 text-center">{errorMessage}</div>
+        )}
         <div className="fixed bottom-4 right-4">
           <DarkThemeToggle />
         </div>

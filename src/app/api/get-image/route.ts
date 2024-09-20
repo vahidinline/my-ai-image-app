@@ -2,7 +2,6 @@ import { GoogleAuth } from 'google-auth-library';
 import { NextResponse } from 'next/server';
 import path from 'path';
 
-// Load the service account key from the config file
 const keyFilePath = path.join(process.cwd(), 'src/config/key.json');
 
 async function getAccessToken() {
@@ -27,17 +26,16 @@ export async function POST(req: Request) {
       style,
     } = await req.json();
 
-    // Restructure the input payload for FLUX.1-schnell compatibility
     const inputPayload = {
       instances: [
         {
-          text: prompt, // Check if 'text' is required instead of 'prompt'
-          num_images: n_samples, // 'num_images' instead of 'n_samples'
-          guidance_scale: cfg_scale, // 'guidance_scale' instead of 'cfg_scale'
-          seed, // Seed might be supported as is
-          steps: 20, // 'steps' instead of 'num_inference_steps'
-          resolution: image_size, // Image size might need to be explicitly named 'resolution'
-          style: style || 'default', // Style, if supported; otherwise, default to 'default'
+          text: prompt,
+          num_images: n_samples,
+          guidance_scale: cfg_scale,
+          seed,
+          steps: num_inference_steps,
+          resolution: image_size,
+          style: style || 'default',
         },
       ],
     };
@@ -56,16 +54,21 @@ export async function POST(req: Request) {
       body: JSON.stringify(inputPayload),
     });
 
-    // Handle response stream
+    if (!response.ok) {
+      const errorBody = await response.text();
+      console.error('Error from Google API:', errorBody);
+      return NextResponse.json(
+        { error: 'Failed to generate image', details: errorBody },
+        { status: 500 }
+      );
+    }
 
-    const responseBody = await response.json(); // Read and parse the response body
-    console.log(responseBody);
-    // Assuming 'predictions' contains the desired image URL
+    const responseBody = await response.json();
     return NextResponse.json(responseBody.predictions[0].output);
   } catch (error) {
     console.error('Error:', error);
     return NextResponse.json(
-      { error: 'Failed to generate image' },
+      { error: 'Failed to generate image', details: error.message },
       { status: 500 }
     );
   }
