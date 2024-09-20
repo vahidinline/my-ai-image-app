@@ -9,7 +9,7 @@ async function getAccessToken() {
     credentials: {
       client_email:
         'aifoodnutritiondata@fitlinez-backend.iam.gserviceaccount.com',
-      private_key: (process.env.GOOGLE_PRIVATE_KEY || '').replace(/\\n/g, '\n'),
+      private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
     },
     projectId: process.env.GOOGLE_PROJECT_ID,
     scopes: ['https://www.googleapis.com/auth/cloud-platform'],
