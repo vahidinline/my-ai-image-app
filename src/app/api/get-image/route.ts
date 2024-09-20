@@ -7,7 +7,8 @@ const keyFilePath = path.join(process.cwd(), 'src/config/key.json');
 async function getAccessToken() {
   const auth = new GoogleAuth({
     credentials: {
-      client_email: process.env.GOOGLE_CLIENT_EMAIL,
+      client_email:
+        'aifoodnutritiondata@fitlinez-backend.iam.gserviceaccount.com',
       private_key: (process.env.GOOGLE_PRIVATE_KEY || '').replace(/\\n/g, '\n'),
     },
     projectId: process.env.GOOGLE_PROJECT_ID,
