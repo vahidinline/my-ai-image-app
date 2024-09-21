@@ -2,6 +2,7 @@ import { GoogleAuth } from 'google-auth-library';
 import { NextResponse } from 'next/server';
 import connectToDB from '@/lib/db';
 import Request from '@/models/Request';
+import Bugsnag from '@bugsnag/js';
 
 async function getAccessToken() {
   const auth = new GoogleAuth({
@@ -67,7 +68,16 @@ export async function POST(req: Request) {
     const accessToken = await getAccessToken();
 
     const endpoint = process.env.GOOGLE_ENDPOINT_URL;
-    if (!endpoint) throw new Error('GOOGLE_ENDPOINT_URL is not defined');
+    if (!endpoint) {
+      Bugsnag.notify(new Error('GOOGLE_ENDPOINT_URL is not defined'));
+      return NextResponse.json(
+        {
+          error: 'Failed to generate image',
+          details: 'GOOGLE_ENDPOINT_URL is not defined',
+        },
+        { status: 500 }
+      );
+    }
 
     const response = await fetch(endpoint, {
       method: 'POST',
@@ -80,7 +90,7 @@ export async function POST(req: Request) {
 
     if (!response.ok) {
       const errorBody = await response.text();
-      console.error('Error from Google API:', errorBody);
+      Bugsnag.notify(new Error(errorBody));
       return NextResponse.json(
         { error: 'Failed to generate image', details: errorBody },
         { status: 500 }
@@ -98,7 +108,7 @@ export async function POST(req: Request) {
     // Return the generated image to the user
     return NextResponse.json({ image: generatedImage });
   } catch (error) {
-    console.error('Error:', error);
+    Bugsnag.notify(error as Error);
     return NextResponse.json(
       {
         error: 'Failed to generate image',
