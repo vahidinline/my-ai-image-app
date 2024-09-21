@@ -31,9 +31,6 @@ BugsnagPerformance.start({
   apiKey: process.env.BUGSNAG_API_KEY || 'default_key',
 });
 
-// Throw an error to test Bugsnag
-Bugsnag.notify(new Error('Test error'));
-
 export default function RootLayout({
   children,
 }: Readonly<{
