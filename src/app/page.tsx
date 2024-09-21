@@ -3,14 +3,14 @@
 import {
   Accordion,
   Button,
+  Flowbite,
   Label,
   Spinner,
   Textarea,
   TextInput,
 } from 'flowbite-react';
 import { useState } from 'react';
-import { DarkThemeToggle, Flowbite } from 'flowbite-react';
-
+import { DarkThemeToggle } from 'flowbite-react';
 export default function Home() {
   const [prompt, setPrompt] = useState('');
   const [n_samples, setNSamples] = useState(1);
@@ -22,7 +22,7 @@ export default function Home() {
   const [imageData, setImageData] = useState(''); // This will store Base64 image data
   const [status, setStatus] = useState('idle');
   const [errorMessage, setErrorMessage] = useState(''); // State for error message
-
+  console.log(imageData);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus('loading');
@@ -52,7 +52,7 @@ export default function Home() {
       setStatus('idle');
       return;
     }
-    setImageData(result); // This will be a Base64 string of the image
+    setImageData(result.image); // This will be a Base64 string of the image
     setStatus('success');
   };
 
