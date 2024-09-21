@@ -18,7 +18,7 @@ async function getAccessToken() {
   return accessToken.token;
 }
 
-export async function POST(req) {
+export async function POST(req: Request) {
   try {
     const {
       userId = '1',
