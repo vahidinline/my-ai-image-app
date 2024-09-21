@@ -216,9 +216,7 @@ export default function Home() {
         {errorMessage && (
           <div className="mt-4 text-red-600 text-center">{errorMessage}</div>
         )}
-        <div className="fixed bottom-4 right-4">
-          <DarkThemeToggle />
-        </div>
+        <div className="fixed bottom-4 right-4"></div>
       </div>
     </Flowbite>
   );
