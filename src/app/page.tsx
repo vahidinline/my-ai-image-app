@@ -74,9 +74,10 @@ export default function Home() {
               className="w-full"
             />
           </div>
-          <Accordion>
+
+          <Accordion collapseAll>
             <Accordion.Panel>
-              <Accordion.Title>تنظیمات پیشرفته</Accordion.Title>
+              <Accordion.Title> تنظیمات پیشرفته (غیر فعال) </Accordion.Title>
               <Accordion.Content>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
@@ -110,6 +111,7 @@ export default function Home() {
                       onChange={(e) => setCfgScale(Number(e.target.value))}
                       min={0}
                       max={20}
+                      disabled
                     />
                   </div>
                 </div>
@@ -127,6 +129,7 @@ export default function Home() {
                       value={seed}
                       onChange={(e) => setSeed(e.target.value)}
                       placeholder="For reproducibility"
+                      disabled
                     />
                   </div>
 
@@ -145,6 +148,7 @@ export default function Home() {
                       }
                       min={1}
                       max={100}
+                      disabled
                     />
                   </div>
                 </div>
@@ -161,6 +165,7 @@ export default function Home() {
                       value={image_size}
                       onChange={(e) => setImageSize(e.target.value)}
                       placeholder="e.g., 512x512"
+                      disabled
                     />
                   </div>
 
@@ -175,6 +180,7 @@ export default function Home() {
                       value={style}
                       onChange={(e) => setStyle(e.target.value)}
                       placeholder="e.g., photorealistic"
+                      disabled
                     />
                   </div>
                 </div>
@@ -196,7 +202,7 @@ export default function Home() {
         {imageData && (
           <div className="mt-8 bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg">
             <h2 className="text-2xl font-semibold mb-4 text-center">
-              Generated Image
+              {prompt}
             </h2>
             <div className="flex justify-center">
               <img
