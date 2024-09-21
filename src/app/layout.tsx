@@ -6,6 +6,7 @@ import { Vazirmatn } from 'next/font/google';
 import BugsnagPluginReact from '@bugsnag/plugin-react';
 import BugsnagPerformance from '@bugsnag/browser-performance';
 import Bugsnag from '@bugsnag/js';
+import { SiteFooter } from '@/component/Footer';
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
   variable: '--font-geist-sans',
@@ -41,7 +42,10 @@ export default function RootLayout({
       <head>
         <ThemeModeScript />
       </head>
-      <body className={vazirmatn.className}>{children}</body>
+      <body className={vazirmatn.className}>
+        {children}
+        <SiteFooter />
+      </body>
     </html>
   );
 }
