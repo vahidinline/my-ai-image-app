@@ -8,12 +8,13 @@ import BugsnagPerformance from '@bugsnag/browser-performance';
 import Bugsnag from '@bugsnag/js';
 import { SiteFooter } from '@/component/Footer';
 import { SiteHeader } from '@/component/Header';
+import { SessionProvider } from 'next-auth/react';
 
 export const metadata: Metadata = {
   title: '',
   description: 'ایجاد تصاویر با استفاده از AI',
 };
-const vazirmatn = Vazirmatn({ subsets: ['latin'] });
+const vazirmatn = Vazirmatn({ subsets: ['arabic'], weight: '300' });
 
 Bugsnag.start({
   apiKey: 'cf0be2bd82655ef2bba751a077b818c0',
@@ -32,10 +33,17 @@ export default function RootLayout({
     <html lang="fa" suppressHydrationWarning>
       <head></head>
       <body
-        className={`${vazirmatn.className} dark:bg-gray-900 dark:text-white`}>
-        <SiteHeader />
-        <div className="flex flex-col min-h-screen">
-          <main className="flex-grow">{children}</main>
+        className={`${vazirmatn.className} dark:bg-gray-900 dark:text-white text-base
+`}>
+        <div
+          className="
+          flex flex-col min-h-screen">
+          <main className="">
+            <SessionProvider>
+              <SiteHeader />
+              {children}
+            </SessionProvider>
+          </main>
           <SiteFooter />
         </div>
       </body>

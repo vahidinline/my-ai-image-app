@@ -1,6 +1,6 @@
 import { GoogleAuth } from 'google-auth-library';
 import { NextResponse } from 'next/server';
-import connectToDB from '@/lib/db';
+import connectToDB from '@/lib/db1';
 import Request from '@/models/Request';
 import Bugsnag from '@bugsnag/js';
 
@@ -30,27 +30,35 @@ export async function POST(req: Request) {
       cfg_scale,
       seed,
       num_inference_steps,
-      image_size,
-      style,
+      height,
+      width,
+      init_image,
     } = await req.json();
-
+    console.log(req.json());
     const inputPayload = {
       instances: [
         {
           text: prompt,
-          num_images: n_samples,
-          guidance_scale: cfg_scale,
-          seed,
-          steps: num_inference_steps,
-          resolution: image_size,
-          style: style || 'default',
         },
       ],
+      parameters: {
+        height: height,
+        width: width,
+        num_inference_steps: num_inference_steps,
+        guidance_scale: cfg_scale,
+        init_image: init_image,
+        // num_images: n_samples,
+        // guidance_scale: cfg_scale,
+        // seed,
+        // steps: num_inference_steps,
+        // resolution: image_size,
+        // style: style || 'default',
+      },
     };
 
     // Connect to MongoDB
-    await connectToDB();
-
+    const resTodB = await connectToDB();
+    console.log(resTodB);
     // Create a new request entry in the database
     const newRequest = new Request({
       userId,
@@ -60,8 +68,6 @@ export async function POST(req: Request) {
         cfg_scale,
         seed,
         num_inference_steps,
-        image_size,
-        style,
       },
     });
     const savedRequest = await newRequest.save();

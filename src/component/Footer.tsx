@@ -1,6 +1,6 @@
 'use client';
 
-import { Footer } from 'flowbite-react';
+import { DarkThemeToggle, Footer } from 'flowbite-react';
 
 export function SiteFooter() {
   return (
@@ -16,6 +16,7 @@ export function SiteFooter() {
         <Footer.Link href="#">Licensing</Footer.Link>
         <Footer.Link href="#">Contact</Footer.Link>
       </Footer.LinkGroup> */}
+      <DarkThemeToggle />
     </Footer>
   );
 }
