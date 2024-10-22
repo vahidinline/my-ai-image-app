@@ -1,6 +1,6 @@
 // app/api/users/route.ts
 import { NextResponse } from 'next/server';
-import connectToDB from '@/lib/mongodb';
+import connectToDB from '@/lib/db1';
 import User from '@/models/users'; // Import your mongoose model
 
 export async function GET() {
