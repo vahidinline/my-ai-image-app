@@ -47,12 +47,6 @@ export async function POST(req: Request) {
         num_inference_steps: num_inference_steps,
         guidance_scale: cfg_scale,
         init_image: init_image,
-        // num_images: n_samples,
-        // guidance_scale: cfg_scale,
-        // seed,
-        // steps: num_inference_steps,
-        // resolution: image_size,
-        // style: style || 'default',
       },
     };
 
