@@ -1,7 +1,8 @@
 import Image from 'next/image';
 import { FC } from 'react';
 import Avatar from '../../assets/img/120.png';
-import { Button } from 'flowbite-react';
+// import { Button } from 'flowbite-react';
+// import { signOut } from '@/app/auth';
 // import { signOut } from '@/app/auth';
 
 // Define type for session props
@@ -76,7 +77,7 @@ const ProfileCard: FC<ProfileCardProps> = ({ session }) => {
           <span className="text-gray-400 font-semibold">اعتبار باقیمانده:</span>
           <span> 40%</span>
         </div>
-        <Button onClick={() => signOut()}>Sign out</Button>
+        {/* <Button onClick={() => signOut()}>Sign out</Button> */}
       </div>
     </section>
   );
