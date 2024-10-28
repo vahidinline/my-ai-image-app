@@ -52,7 +52,7 @@ const Home = () => {
         throw new Error(data.errors?.[0] || 'Translation failed.');
       }
     } catch (error) {
-      setErrorMessage(`Translation Error: ${error.message}`);
+      setErrorMessage(`Translation Error`);
       setStatus('idle'); // Reset the status in case of an error
       return '';
     }
@@ -110,7 +110,7 @@ const Home = () => {
         throw new Error(result.error || 'Image generation failed.');
       }
     } catch (error) {
-      setErrorMessage(`Image Generation Error: ${error.message}`);
+      setErrorMessage(`Image Generation Error`);
       setStatus('idle');
     }
   };
