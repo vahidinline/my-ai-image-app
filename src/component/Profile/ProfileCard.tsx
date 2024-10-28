@@ -6,7 +6,7 @@ import { Button } from 'flowbite-react';
 
 // Define type for session props
 type ProfileCardProps = {
-  session: Option;
+  session: any;
 };
 
 // Define type for session object
