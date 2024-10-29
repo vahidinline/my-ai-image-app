@@ -51,7 +51,7 @@ export async function POST(req: Request) {
 
     // Connect to MongoDB
     const resTodB = await connectToDB();
-
+    console.log(resTodB);
     // Create a new request entry in the database
     const newRequest = new Request({
       userId,
@@ -108,6 +108,7 @@ export async function POST(req: Request) {
     // Return the generated image to the user
     return NextResponse.json({ image: generatedImage });
   } catch (error) {
+    console.error('Error details:', error);
     return NextResponse.json(
       {
         error: 'Failed to generate image 3',
