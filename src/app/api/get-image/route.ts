@@ -72,7 +72,7 @@ export async function POST(req: Request) {
     if (!endpoint) {
       return NextResponse.json(
         {
-          error: 'Failed to generate image',
+          error: 'Failed to generate image 1',
           details: 'GOOGLE_ENDPOINT_URL is not defined',
         },
         { status: 500 }
@@ -92,7 +92,7 @@ export async function POST(req: Request) {
       const errorBody = await response.text();
 
       return NextResponse.json(
-        { error: 'Failed to generate image', details: errorBody },
+        { error: 'Failed to generate image 2', details: errorBody },
         { status: 500 }
       );
     }
@@ -110,7 +110,7 @@ export async function POST(req: Request) {
   } catch (error) {
     return NextResponse.json(
       {
-        error: 'Failed to generate image',
+        error: 'Failed to generate image 3',
         details: error instanceof Error ? error.message : String(error),
       },
       { status: 500 }
