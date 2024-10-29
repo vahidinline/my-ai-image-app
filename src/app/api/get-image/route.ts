@@ -68,7 +68,8 @@ export async function POST(req: Request) {
     // Get access token for Google API
     const accessToken = await getAccessToken();
 
-    const endpoint = process.env.GOOGLE_ENDPOINT_URL;
+    const endpoint =
+      'https://us-central1-aiplatform.googleapis.com/v1/projects/350430681081/locations/us-central1/endpoints/2271521753752666112:predict';
     if (!endpoint) {
       return NextResponse.json(
         {
