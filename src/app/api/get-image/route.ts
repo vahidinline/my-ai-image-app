@@ -99,7 +99,7 @@ export async function POST(req: Request) {
 
     const responseBody = await response.json();
     const generatedImage = responseBody.predictions[0].output;
-
+    console.log(generatedImage);
     // Update the request entry with the generated image output
     savedRequest.output = generatedImage;
     savedRequest.updatedAt = new Date();
