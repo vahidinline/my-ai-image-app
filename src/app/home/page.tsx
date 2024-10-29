@@ -103,6 +103,7 @@ const Home = () => {
       });
 
       const result = await response.json();
+      console.log(result);
       if (response.ok) {
         setImageData(result.image); // Store the Base64 image data
         setStatus('success');
@@ -110,6 +111,7 @@ const Home = () => {
         throw new Error(result.error || 'Image generation failed.');
       }
     } catch (error) {
+      console.error(error);
       setErrorMessage(`Image Generation Error`);
       setStatus('idle');
     }
