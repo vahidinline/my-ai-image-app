@@ -2,7 +2,6 @@ import { GoogleAuth } from 'google-auth-library';
 import { NextResponse } from 'next/server';
 import connectToDB from '@/lib/db1';
 import Request from '@/models/Request';
-import Bugsnag from '@bugsnag/js';
 
 async function getAccessToken() {
   const auth = new GoogleAuth({
@@ -52,7 +51,7 @@ export async function POST(req: Request) {
 
     // Connect to MongoDB
     const resTodB = await connectToDB();
-    console.log(resTodB);
+
     // Create a new request entry in the database
     const newRequest = new Request({
       userId,
@@ -71,7 +70,6 @@ export async function POST(req: Request) {
 
     const endpoint = process.env.GOOGLE_ENDPOINT_URL;
     if (!endpoint) {
-      Bugsnag.notify(new Error('GOOGLE_ENDPOINT_URL is not defined'));
       return NextResponse.json(
         {
           error: 'Failed to generate image',
@@ -92,7 +90,7 @@ export async function POST(req: Request) {
 
     if (!response.ok) {
       const errorBody = await response.text();
-      Bugsnag.notify(new Error(errorBody));
+
       return NextResponse.json(
         { error: 'Failed to generate image', details: errorBody },
         { status: 500 }
@@ -110,7 +108,6 @@ export async function POST(req: Request) {
     // Return the generated image to the user
     return NextResponse.json({ image: generatedImage });
   } catch (error) {
-    Bugsnag.notify(error as Error);
     return NextResponse.json(
       {
         error: 'Failed to generate image',
